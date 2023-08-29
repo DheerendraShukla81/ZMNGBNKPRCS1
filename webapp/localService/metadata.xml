@@ -1,0 +1,732 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="FAC_GL_ACCOUNT_BALANCE_SRV" xml:lang="en" sap:schema-version="2" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="Link" sap:label="Link" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="LinkKey"/>
+                </Key>
+                <Property Name="LinkKey" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="LinkParameters" Type="Edm.String" Nullable="false" MaxLength="65535" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="LedgerFiscalYearValueHelp" sap:label="Ledger Fiscal Year Value Help" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="LedgerFiscalYear"/>
+                </Key>
+                <Property Name="LedgerFiscalYear" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:unicode="false" sap:label="Ledger Fiscal Year" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="PeriodForFsclYrVarAndFsclYrValueHelp" sap:label="Period For Fiscal Year Variant and Fiscal Year Value Help" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="FiscalYearVariant"/>
+                    <PropertyRef Name="LedgerFiscalYear"/>
+                    <PropertyRef Name="LedgerFiscalPeriod"/>
+                </Key>
+                <Property Name="FiscalYearVariant" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:unicode="false" sap:label="Fiscal Year Variant" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LedgerFiscalYear" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:unicode="false" sap:label="Ledger Fiscal Year" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LedgerFiscalPeriod" Type="Edm.String" Nullable="false" MaxLength="3" sap:display-format="UpperCase" sap:unicode="false" sap:label="Ledger Fiscal Period" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ValidityStartDate" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="Validity Start Date" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ValidityEndDate" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="Validity End Date" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="FISCAL_YEAR" sap:label="Fiscal Year" sap:semantics="aggregate" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="STRING" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:unicode="false" sap:label="Company Code" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Ledger" Type="Edm.String" Nullable="false" MaxLength="2" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:unicode="false" sap:label="Ledger" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="GLAccount" Type="Edm.String" Nullable="false" MaxLength="10" sap:aggregation-role="dimension" sap:unicode="false" sap:label="G/L Account" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ControllingArea" Type="Edm.String" Nullable="false" MaxLength="4" sap:aggregation-role="dimension" sap:unicode="false" sap:label="Controlling Area" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ProfitCenter" Type="Edm.String" Nullable="false" MaxLength="10" sap:aggregation-role="dimension" sap:unicode="false" sap:label="Profit Center" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Segment" Type="Edm.String" Nullable="false" MaxLength="10" sap:aggregation-role="dimension" sap:unicode="false" sap:label="Segment" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FunctionalArea" Type="Edm.String" Nullable="false" MaxLength="16" sap:aggregation-role="dimension" sap:unicode="false" sap:label="Functional Area" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="BusinessArea" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Business Area" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="LedgerFiscalYear" Type="Edm.String" Nullable="false" MaxLength="4" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:unicode="false" sap:label="G/L Fiscal Year" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="LedgerValueHelp" sap:label="Ledger Value Help" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Ledger"/>
+                </Key>
+                <Property Name="Ledger" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:text="LedgerName" sap:unicode="false" sap:label="Ledger" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LedgerName" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Ledger Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="IsLeadingLedger" Type="Edm.String" Nullable="false" MaxLength="1" sap:display-format="UpperCase" sap:unicode="false" sap:label="Leading Ledger" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="CurrenciesForLedgerAndCoCodeValueHelp" sap:label="Currencies For Ledger And Company Code Value Help" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CompanyCode"/>
+                    <PropertyRef Name="Ledger"/>
+                </Key>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:unicode="false" sap:label="Company Code" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Ledger" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:unicode="false" sap:label="Ledger" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CompanyCodeCurrencyRole" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:unicode="false" sap:label="Currency Type" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CompanyCodeCurrencyRoleName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Currency Type Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CompanyCodeCurrency" Type="Edm.String" Nullable="false" MaxLength="5" sap:display-format="UpperCase" sap:unicode="false" sap:label="Currency" sap:creatable="false" sap:updatable="false" sap:semantics="currency-code"/>
+                <Property Name="GlobalCurrencyRole" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Currency Type 2" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="GlobalCurrencyRoleName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Currency Type 2 Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="GlobalCurrency" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Currency 2" sap:creatable="false" sap:updatable="false" sap:semantics="currency-code"/>
+                <Property Name="FreeDefinedCurrency1Role" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:unicode="false" sap:label="Currency Type 3" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FreeDefinedCurrency1RoleName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Currency Type 3 Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FreeDefinedCurrency1" Type="Edm.String" Nullable="false" MaxLength="5" sap:display-format="UpperCase" sap:unicode="false" sap:label="Currency 3" sap:creatable="false" sap:updatable="false" sap:semantics="currency-code"/>
+                <Property Name="FreeDefinedCurrency2Role" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:unicode="false" sap:label="Freely Defined Currency 2 Role" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FreeDefinedCurrency2RoleName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Freely Defined Currency 2 Role Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FreeDefinedCurrency2" Type="Edm.String" Nullable="false" MaxLength="5" sap:display-format="UpperCase" sap:unicode="false" sap:label="Free Defined Crcy 2" sap:creatable="false" sap:updatable="false" sap:semantics="currency-code"/>
+                <Property Name="FreeDefinedCurrency3Role" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:unicode="false" sap:label="Freely Defined Currency 3 Role" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FreeDefinedCurrency3RoleName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Freely Defined Currency 3 Role Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FreeDefinedCurrency3" Type="Edm.String" Nullable="false" MaxLength="5" sap:display-format="UpperCase" sap:unicode="false" sap:label="Free Defined Crcy 3" sap:creatable="false" sap:updatable="false" sap:semantics="currency-code"/>
+                <Property Name="FreeDefinedCurrency4Role" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:unicode="false" sap:label="Freely Defined Currency 4 Role" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FreeDefinedCurrency4RoleName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Freely Defined Currency 4 Role Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FreeDefinedCurrency4" Type="Edm.String" Nullable="false" MaxLength="5" sap:display-format="UpperCase" sap:unicode="false" sap:label="Free Defined Crcy 4" sap:creatable="false" sap:updatable="false" sap:semantics="currency-code"/>
+                <Property Name="FreeDefinedCurrency5Role" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:unicode="false" sap:label="Freely Defined Currency 5 Role" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FreeDefinedCurrency5RoleName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Freely Defined Currency 5 Role Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FreeDefinedCurrency5" Type="Edm.String" Nullable="false" MaxLength="5" sap:display-format="UpperCase" sap:unicode="false" sap:label="Free Defined Crcy 5" sap:creatable="false" sap:updatable="false" sap:semantics="currency-code"/>
+                <Property Name="FreeDefinedCurrency6Role" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:unicode="false" sap:label="Freely Defined Currency 6 Role" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FreeDefinedCurrency6RoleName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Freely Defined Currency 6 Role Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FreeDefinedCurrency6" Type="Edm.String" Nullable="false" MaxLength="5" sap:display-format="UpperCase" sap:unicode="false" sap:label="Free Defined Crcy 6" sap:creatable="false" sap:updatable="false" sap:semantics="currency-code"/>
+                <Property Name="FreeDefinedCurrency7Role" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:unicode="false" sap:label="Freely Defined Currency 7 Role" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FreeDefinedCurrency7RoleName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Freely Defined Currency 7 Role Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FreeDefinedCurrency7" Type="Edm.String" Nullable="false" MaxLength="5" sap:display-format="UpperCase" sap:unicode="false" sap:label="Free Defined Crcy 7" sap:creatable="false" sap:updatable="false" sap:semantics="currency-code"/>
+                <Property Name="FreeDefinedCurrency8Role" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:unicode="false" sap:label="Freely Defined Currency 8 Role" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FreeDefinedCurrency8RoleName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Freely Defined Currency 8 Role Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FreeDefinedCurrency8" Type="Edm.String" Nullable="false" MaxLength="5" sap:display-format="UpperCase" sap:unicode="false" sap:label="Free Defined Crcy 8" sap:creatable="false" sap:updatable="false" sap:semantics="currency-code"/>
+            </EntityType>
+            <EntityType Name="GLAcctForCoCodeAndChtAcctsValueHelp" sap:label="GL Account For Company Code And Chart of Accounts Value Help" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CompanyCode"/>
+                    <PropertyRef Name="ChartOfAccounts"/>
+                    <PropertyRef Name="GLAccount"/>
+                </Key>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:unicode="false" sap:label="Company Code" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ChartOfAccounts" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:unicode="false" sap:label="Chart of Accounts" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="GLAccount" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:text="GLAccountLongName" sap:unicode="false" sap:label="G/L Account" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="GLAccountLongName" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="G/L Account Long Name" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="CompanyCodeForLedgerValueHelp" sap:label="Company Code for Ledger Value Help" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CompanyCode"/>
+                    <PropertyRef Name="Ledger"/>
+                </Key>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:text="CompanyCodeName" sap:unicode="false" sap:label="Company Code" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FiscalYearVariant" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:unicode="false" sap:label="Fiscal Year Variant" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Ledger" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:unicode="false" sap:label="Ledger" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CompanyCodeName" Type="Edm.String" Nullable="false" MaxLength="25" sap:unicode="false" sap:label="Company Code Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ControllingArea" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:unicode="false" sap:label="Controlling Area" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ChartOfAccounts" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:unicode="false" sap:label="Chart of Accounts" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CompanyCodeCityName" Type="Edm.String" Nullable="false" MaxLength="25" sap:unicode="false" sap:label="City" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CompanyCodeCurrency" Type="Edm.String" Nullable="false" MaxLength="5" sap:display-format="UpperCase" sap:unicode="false" sap:label="Currency" sap:creatable="false" sap:updatable="false" sap:semantics="currency-code"/>
+            </EntityType>
+            <EntityType Name="GL_ACCOUNT_BALANCE" sap:service-schema-version="2" sap:service-version="1" sap:label="GL Account Balance" sap:semantics="aggregate" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="STRING" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="Ledger" Type="Edm.String" Nullable="false" MaxLength="2" sap:aggregation-role="dimension" sap:filter-restriction="single-value" sap:required-in-filter="true" sap:text="LedgerName" sap:unicode="false" sap:label="Ledger" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="LedgerName" Type="Edm.String" Nullable="false" MaxLength="30" sap:aggregation-role="dimension" sap:unicode="false" sap:label="Ledger Name" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:aggregation-role="dimension" sap:required-in-filter="true" sap:text="CompanyCodeName" sap:unicode="false" sap:label="Company Code" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="CompanyCodeName" Type="Edm.String" Nullable="false" MaxLength="25" sap:aggregation-role="dimension" sap:unicode="false" sap:label="Company Code Name" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="LedgerFiscalYear" Type="Edm.String" Nullable="false" MaxLength="4" sap:aggregation-role="dimension" sap:filter-restriction="multi-value" sap:required-in-filter="true" sap:unicode="false" sap:label="Ledger Fiscal Year" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LedgerFiscalPeriod" Type="Edm.String" Nullable="false" MaxLength="3" sap:aggregation-role="dimension" sap:filter-restriction="interval" sap:unicode="false" sap:label="Ledger Fiscal Period" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="ChartOfAccounts" Type="Edm.String" Nullable="false" MaxLength="4" sap:aggregation-role="dimension" sap:unicode="false" sap:label="Chart of Accounts" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="ChartOfAccountsName" Type="Edm.String" Nullable="false" MaxLength="50" sap:aggregation-role="dimension" sap:unicode="false" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="GLAccount" Type="Edm.String" Nullable="false" MaxLength="10" sap:aggregation-role="dimension" sap:text="GLAccountLongName" sap:unicode="false" sap:label="G/L Account" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="GLAccountName" Type="Edm.String" Nullable="false" MaxLength="30" sap:aggregation-role="dimension" sap:unicode="false" sap:label="G/L Account Name" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="GLAccountLongName" Type="Edm.String" Nullable="false" MaxLength="50" sap:aggregation-role="dimension" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="ControllingArea" Type="Edm.String" Nullable="false" MaxLength="4" sap:aggregation-role="dimension" sap:text="ControllingAreaName" sap:unicode="false" sap:label="Controlling Area" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="ControllingAreaName" Type="Edm.String" Nullable="false" MaxLength="30" sap:aggregation-role="dimension" sap:unicode="false" sap:label="Ctrlg Area Name" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="ProfitCenter" Type="Edm.String" Nullable="false" MaxLength="10" sap:aggregation-role="dimension" sap:text="ProfitCenterName" sap:unicode="false" sap:label="Profit Center" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="ProfitCenterName" Type="Edm.String" Nullable="false" MaxLength="50" sap:aggregation-role="dimension" sap:unicode="false" sap:label="Profit Center Name" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="Segment" Type="Edm.String" Nullable="false" MaxLength="10" sap:aggregation-role="dimension" sap:text="SegmentName" sap:unicode="false" sap:label="Segment" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="SegmentName" Type="Edm.String" Nullable="false" MaxLength="50" sap:aggregation-role="dimension" sap:unicode="false" sap:label="Segment Name" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="FunctionalArea" Type="Edm.String" Nullable="false" MaxLength="16" sap:aggregation-role="dimension" sap:text="FunctionalAreaName" sap:unicode="false" sap:label="Functional Area" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="FunctionalAreaName" Type="Edm.String" Nullable="false" MaxLength="30" sap:aggregation-role="dimension" sap:unicode="false" sap:label="Functional Area Name" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="BusinessArea" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Business Area" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="BusinessAreaName" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="CompanyCodeCurrency" Type="Edm.String" Nullable="false" MaxLength="5" sap:aggregation-role="dimension" sap:unicode="false" sap:label="Company Code Crcy" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:value-list="standard" sap:semantics="currency-code"/>
+                <Property Name="CreditAmountInCoCodeCrcy" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="CompanyCodeCurrency" sap:label="Cr Amt in CC Crcy" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="DebitAmountInCompanyCodeCrcy" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="CompanyCodeCurrency" sap:label="Dr Amt in CC Crcy" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="BalAmtInCompanyCodeCrcy" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="CompanyCodeCurrency" sap:label="Bal.Amt Co Code Crcy" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="AccmltdBalAmtInCoCodeCrcy" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="CompanyCodeCurrency" sap:label="Acc.Bal.Amt CC Crcy" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="GlobalCurrency" Type="Edm.String" Nullable="false" MaxLength="5" sap:aggregation-role="dimension" sap:unicode="false" sap:label="Global Currency" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:value-list="standard" sap:semantics="currency-code"/>
+                <Property Name="CreditAmountInGlobalCrcy" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="GlobalCurrency" sap:label="Cr Amt in Glob. Crcy" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="DebitAmountInGlobalCrcy" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="GlobalCurrency" sap:label="Dr Amt in Glob. Crcy" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="BalanceAmountInGlobalCrcy" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="GlobalCurrency" sap:label="Bal.Amt Global Crcy" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="AccumulatedBalAmtInGlobalCrcy" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="GlobalCurrency" sap:label="Acc.Bal.Amt GlobCrcy" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="FreeDefinedCurrency1" Type="Edm.String" Nullable="false" MaxLength="5" sap:aggregation-role="dimension" sap:unicode="false" sap:label="Free Defined Crcy 1" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:value-list="standard" sap:semantics="currency-code"/>
+                <Property Name="CreditAmountInFreeDefinedCrcy1" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="FreeDefinedCurrency1" sap:label="Cr Amt in FreeCrcy 1" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="DebitAmountInFreeDefinedCrcy1" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="FreeDefinedCurrency1" sap:label="Dr Amt in FreeCrcy 1" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="BalanceAmountInFreeDfndCrcy1" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="FreeDefinedCurrency1" sap:label="Bal.Amt Free Crcy 1" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="AccmltdBalAmtInFreeDfndCrcy1" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="FreeDefinedCurrency1" sap:label="Acc.Bal.Amt FDCrcy1" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="FreeDefinedCurrency2" Type="Edm.String" Nullable="false" MaxLength="5" sap:aggregation-role="dimension" sap:unicode="false" sap:label="Free Defined Crcy 2" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:value-list="standard" sap:semantics="currency-code"/>
+                <Property Name="CreditAmountInFreeDefinedCrcy2" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="FreeDefinedCurrency2" sap:label="Cr Amt in FreeCrcy 2" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="DebitAmountInFreeDefinedCrcy2" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="FreeDefinedCurrency2" sap:label="Dr Amt in FreeCrcy 2" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="BalanceAmountInFreeDfndCrcy2" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="FreeDefinedCurrency2" sap:label="Bal.Amt Free Crcy 2" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="AccmltdBalAmtInFreeDfndCrcy2" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="FreeDefinedCurrency2" sap:label="Acc.Bal.Amt FDCrcy2" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="FreeDefinedCurrency3" Type="Edm.String" Nullable="false" MaxLength="5" sap:aggregation-role="dimension" sap:unicode="false" sap:label="Free Defined Crcy 3" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:value-list="standard" sap:semantics="currency-code"/>
+                <Property Name="CreditAmountInFreeDefinedCrcy3" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="FreeDefinedCurrency3" sap:label="Cr Amt in FreeCrcy 3" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="DebitAmountInFreeDefinedCrcy3" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="FreeDefinedCurrency3" sap:label="Dr Amt in FreeCrcy 3" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="BalanceAmountInFreeDfndCrcy3" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="FreeDefinedCurrency3" sap:label="Bal.Amt Free Crcy 3" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="AccmltdBalAmtInFreeDfndCrcy3" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="FreeDefinedCurrency3" sap:label="Acc.Bal.Amt FDCrcy3" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="FreeDefinedCurrency4" Type="Edm.String" Nullable="false" MaxLength="5" sap:aggregation-role="dimension" sap:unicode="false" sap:label="Free Defined Crcy 4" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:value-list="standard" sap:semantics="currency-code"/>
+                <Property Name="CreditAmountInFreeDefinedCrcy4" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="FreeDefinedCurrency4" sap:label="Cr Amt in FreeCrcy 4" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="DebitAmountInFreeDefinedCrcy4" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="FreeDefinedCurrency4" sap:label="Dr Amt in FreeCrcy 4" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="BalanceAmountInFreeDfndCrcy4" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="FreeDefinedCurrency4" sap:label="Bal.Amt Free Crcy 4" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="AccmltdBalAmtInFreeDfndCrcy4" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="FreeDefinedCurrency4" sap:label="Acc.Bal.Amt FDCrcy4" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="FreeDefinedCurrency5" Type="Edm.String" Nullable="false" MaxLength="5" sap:aggregation-role="dimension" sap:unicode="false" sap:label="Free Defined Crcy 5" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:value-list="standard" sap:semantics="currency-code"/>
+                <Property Name="CreditAmountInFreeDefinedCrcy5" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="FreeDefinedCurrency5" sap:label="Cr Amt in FreeCrcy 5" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="DebitAmountInFreeDefinedCrcy5" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="FreeDefinedCurrency5" sap:label="Dr Amt in FreeCrcy 5" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="BalanceAmountInFreeDfndCrcy5" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="FreeDefinedCurrency5" sap:label="Bal.Amt Free Crcy 5" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="AccmltdBalAmtInFreeDfndCrcy5" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="FreeDefinedCurrency5" sap:label="Acc.Bal.Amt FDCrcy5" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="FreeDefinedCurrency6" Type="Edm.String" Nullable="false" MaxLength="5" sap:aggregation-role="dimension" sap:unicode="false" sap:label="Free Defined Crcy 6" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:value-list="standard" sap:semantics="currency-code"/>
+                <Property Name="CreditAmountInFreeDefinedCrcy6" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="FreeDefinedCurrency6" sap:label="Cr Amt in FreeCrcy 6" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="DebitAmountInFreeDefinedCrcy6" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="FreeDefinedCurrency6" sap:label="Dr Amt in FreeCrcy 6" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="BalanceAmountInFreeDfndCrcy6" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="FreeDefinedCurrency6" sap:label="Bal.Amt Free Crcy 6" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="AccmltdBalAmtInFreeDfndCrcy6" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="FreeDefinedCurrency6" sap:label="Acc.Bal.Amt FDCrcy6" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="FreeDefinedCurrency7" Type="Edm.String" Nullable="false" MaxLength="5" sap:aggregation-role="dimension" sap:unicode="false" sap:label="Free Defined Crcy 7" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:value-list="standard" sap:semantics="currency-code"/>
+                <Property Name="CreditAmountInFreeDefinedCrcy7" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="FreeDefinedCurrency7" sap:label="Cr Amt in FreeCrcy 7" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="DebitAmountInFreeDefinedCrcy7" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="FreeDefinedCurrency7" sap:label="Dr Amt in FreeCrcy 7" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="BalanceAmountInFreeDfndCrcy7" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="FreeDefinedCurrency7" sap:label="Bal.Amt Free Crcy 7" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="AccmltdBalAmtInFreeDfndCrcy7" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="FreeDefinedCurrency7" sap:label="Acc.Bal.Amt FDCrcy7" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="FreeDefinedCurrency8" Type="Edm.String" Nullable="false" MaxLength="5" sap:aggregation-role="dimension" sap:unicode="false" sap:label="Free Defined Crcy 8" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:value-list="standard" sap:semantics="currency-code"/>
+                <Property Name="CreditAmountInFreeDefinedCrcy8" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="FreeDefinedCurrency8" sap:label="Cr Amt in FreeCrcy 8" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="DebitAmountInFreeDefinedCrcy8" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="FreeDefinedCurrency8" sap:label="Dr Amt in FreeCrcy 8" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="BalanceAmountInFreeDfndCrcy8" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="FreeDefinedCurrency8" sap:label="Bal.Amt Free Crcy 8" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="AccmltdBalAmtInFreeDfndCrcy8" Type="Edm.Decimal" Nullable="false" Precision="25" Scale="2" sap:aggregation-role="measure" sap:unicode="false" sap:unit="FreeDefinedCurrency8" sap:label="Acc.Bal.Amt FDCrcy8" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="IsNotPostedTo" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Obj. not posted to" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="VL_SH_H_TKA01" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="KOKRS"/>
+                </Key>
+                <Property Name="KOKRS" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Controlling Area" sap:sortable="false"/>
+                <Property Name="BEZEI" Type="Edm.String" MaxLength="25" sap:label="Ctrlg Area Name" sap:sortable="false"/>
+                <Property Name="WAERS" Type="Edm.String" MaxLength="5" sap:display-format="UpperCase" sap:label="Currency" sap:sortable="false" sap:semantics="currency-code"/>
+                <Property Name="KTOPL" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Chart of Accounts" sap:sortable="false"/>
+                <Property Name="LMONA" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Fiscal Year Variant" sap:sortable="false"/>
+                <Property Name="KHINR" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Standard Hierarchy" sap:sortable="false"/>
+            </EntityType>
+            <EntityType Name="VL_SH_H_FAGL_SEGM" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="SEGMENT"/>
+                    <PropertyRef Name="NAME"/>
+                </Key>
+                <Property Name="SEGMENT" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Segment" sap:sortable="false"/>
+                <Property Name="NAME" Type="Edm.String" Nullable="false" MaxLength="50" sap:label="Segment Name" sap:sortable="false"/>
+            </EntityType>
+            <EntityType Name="VL_CT_TFKB" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="FKBER"/>
+                </Key>
+                <Property Name="FKBER" Type="Edm.String" Nullable="false" MaxLength="16" sap:display-format="UpperCase" sap:label="Functional Area" sap:sortable="false"/>
+                <Property Name="FKBTX" Type="Edm.String" MaxLength="25" sap:label="Functional Area Name" sap:sortable="false"/>
+            </EntityType>
+            <EntityType Name="VL_SH_H_TGSB" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="GSBER"/>
+                </Key>
+                <Property Name="GSBER" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Business Area" sap:sortable="false"/>
+                <Property Name="GTEXT" Type="Edm.String" MaxLength="30" sap:label="BA Description" sap:sortable="false"/>
+            </EntityType>
+            <EntityType Name="VL_CT_TCURC" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="WAERS"/>
+                </Key>
+                <Property Name="WAERS" Type="Edm.String" Nullable="false" MaxLength="5" sap:display-format="UpperCase" sap:label="Currency" sap:sortable="false" sap:semantics="currency-code"/>
+                <Property Name="LTEXT" Type="Edm.String" MaxLength="40" sap:label="Currency Name" sap:sortable="false"/>
+            </EntityType>
+            <EntityType Name="VL_SH_PRCTB" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="PRCTR"/>
+                    <PropertyRef Name="KTEXT"/>
+                    <PropertyRef Name="BUKRS"/>
+                </Key>
+                <Property Name="PRCTR" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Profit Center" sap:sortable="false"/>
+                <Property Name="KTEXT" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="Name" sap:sortable="false"/>
+                <Property Name="BUKRS" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Company Code" sap:sortable="false"/>
+            </EntityType>
+            <EntityContainer Name="FAC_GL_ACCOUNT_BALANCE_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="Links" EntityType="FAC_GL_ACCOUNT_BALANCE_SRV.Link" sap:label="Links" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="LedgerFiscalYearValueHelpSet" EntityType="FAC_GL_ACCOUNT_BALANCE_SRV.LedgerFiscalYearValueHelp" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="PeriodForFsclYrVarAndFsclYrValueHelpSet" EntityType="FAC_GL_ACCOUNT_BALANCE_SRV.PeriodForFsclYrVarAndFsclYrValueHelp" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="FISCAL_YEARSet" EntityType="FAC_GL_ACCOUNT_BALANCE_SRV.FISCAL_YEAR" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="LedgerValueHelpSet" EntityType="FAC_GL_ACCOUNT_BALANCE_SRV.LedgerValueHelp" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="CurrenciesForLedgerAndCoCodeValueHelpSet" EntityType="FAC_GL_ACCOUNT_BALANCE_SRV.CurrenciesForLedgerAndCoCodeValueHelp" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="GLAcctForCoCodeAndChtAcctsValueHelpSet" EntityType="FAC_GL_ACCOUNT_BALANCE_SRV.GLAcctForCoCodeAndChtAcctsValueHelp" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="CompanyCodeForLedgerValueHelpSet" EntityType="FAC_GL_ACCOUNT_BALANCE_SRV.CompanyCodeForLedgerValueHelp" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="GL_ACCOUNT_BALANCESet" EntityType="FAC_GL_ACCOUNT_BALANCE_SRV.GL_ACCOUNT_BALANCE" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="VL_SH_H_TKA01" EntityType="FAC_GL_ACCOUNT_BALANCE_SRV.VL_SH_H_TKA01" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1" sap:countable="true"/>
+                <EntitySet Name="VL_SH_H_FAGL_SEGM" EntityType="FAC_GL_ACCOUNT_BALANCE_SRV.VL_SH_H_FAGL_SEGM" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1" sap:countable="true"/>
+                <EntitySet Name="VL_CT_TFKB" EntityType="FAC_GL_ACCOUNT_BALANCE_SRV.VL_CT_TFKB" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1" sap:countable="true" sap:semantics="aggregate"/>
+                <EntitySet Name="VL_SH_H_TGSB" EntityType="FAC_GL_ACCOUNT_BALANCE_SRV.VL_SH_H_TGSB" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1" sap:countable="true"/>
+                <EntitySet Name="VL_CT_TCURC" EntityType="FAC_GL_ACCOUNT_BALANCE_SRV.VL_CT_TCURC" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1" sap:countable="true" sap:semantics="aggregate"/>
+                <EntitySet Name="VL_SH_PRCTB" EntityType="FAC_GL_ACCOUNT_BALANCE_SRV.VL_SH_PRCTB" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1" sap:countable="true"/>
+            </EntityContainer>
+            <Annotations Target="FAC_GL_ACCOUNT_BALANCE_SRV.GL_ACCOUNT_BALANCE/CompanyCode" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Comapny Code for Ledger"/>
+                        <PropertyValue Property="CollectionPath" String="CompanyCodeForLedgerValueHelpSet"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CompanyCode"/>
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCode"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CompanyCodeName"/>
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCodeName"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CompanyCodeCityName"/>
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCodeCityName"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CompanyCodeCurrency"/>
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCodeCurrency"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Ledger"/>
+                                    <PropertyValue Property="ValueListProperty" String="Ledger"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ChartOfAccounts"/>
+                                    <PropertyValue Property="ValueListProperty" String="ChartOfAccounts"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="FiscalYearVariant"/>
+                                    <PropertyValue Property="ValueListProperty" String="FiscalYearVariant"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ControllingArea"/>
+                                    <PropertyValue Property="ValueListProperty" String="ControllingArea"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="FAC_GL_ACCOUNT_BALANCE_SRV.GL_ACCOUNT_BALANCE/CompanyCodeCurrency" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Currencies for company codes and ledger"/>
+                        <PropertyValue Property="CollectionPath" String="CurrenciesForLedgerAndCoCodeValueHelpSet"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CompanyCodeCurrency"/>
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCodeCurrency"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Ledger"/>
+                                    <PropertyValue Property="ValueListProperty" String="Ledger"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CompanyCode"/>
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCode"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CompanyCodeCurrencyRole"/>
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCodeCurrencyRole"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CompanyCodeCurrencyRoleName"/>
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCodeCurrencyRoleName"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="AdditionalCurrency1Role"/>
+                                    <PropertyValue Property="ValueListProperty" String="AdditionalCurrency1Role"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="AdditionalCurrency1RoleName"/>
+                                    <PropertyValue Property="ValueListProperty" String="AdditionalCurrency1RoleName"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="AdditionalCurrency1"/>
+                                    <PropertyValue Property="ValueListProperty" String="AdditionalCurrency1"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="AdditionalCurrency2Role"/>
+                                    <PropertyValue Property="ValueListProperty" String="AdditionalCurrency2Role"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="AdditionalCurrency2RoleName"/>
+                                    <PropertyValue Property="ValueListProperty" String="AdditionalCurrency2RoleName"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="AdditionalCurrency2"/>
+                                    <PropertyValue Property="ValueListProperty" String="AdditionalCurrency2"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="FAC_GL_ACCOUNT_BALANCE_SRV.GL_ACCOUNT_BALANCE/GLAccount" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Value help for GLAccount"/>
+                        <PropertyValue Property="CollectionPath" String="GLAcctForCoCodeAndChtAcctsValueHelpSet"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="GLAccount"/>
+                                    <PropertyValue Property="ValueListProperty" String="GLAccount"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ChartOfAccounts"/>
+                                    <PropertyValue Property="ValueListProperty" String="ChartOfAccounts"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CompanyCode"/>
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCode"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="GLAccountLongName"/>
+                                    <PropertyValue Property="ValueListProperty" String="GLAccountLongName"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="FAC_GL_ACCOUNT_BALANCE_SRV.GL_ACCOUNT_BALANCE/Ledger" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Help View for the Ledger Display"/>
+                        <PropertyValue Property="CollectionPath" String="LedgerValueHelpSet"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Ledger"/>
+                                    <PropertyValue Property="ValueListProperty" String="Ledger"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="LedgerName"/>
+                                    <PropertyValue Property="ValueListProperty" String="LedgerName"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="LedgerName"/>
+                                    <PropertyValue Property="ValueListProperty" String="LedgerName"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="IsLeadingLedger"/>
+                                    <PropertyValue Property="ValueListProperty" String="IsLeadingLedger"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="FAC_GL_ACCOUNT_BALANCE_SRV.GL_ACCOUNT_BALANCE/LedgerFiscalPeriod" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="PeriodForFsclYrVarAndFsclYrValueHelpSet"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="LedgerFiscalPeriod"/>
+                                    <PropertyValue Property="ValueListProperty" String="LedgerFiscalPeriod"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="LedgerFiscalYear"/>
+                                    <PropertyValue Property="ValueListProperty" String="LedgerFiscalYear"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="FiscalYearVariant"/>
+                                    <PropertyValue Property="ValueListProperty" String="FiscalYearVariant"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ValidityStartDate"/>
+                                    <PropertyValue Property="ValueListProperty" String="ValidityStartDate"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ValidityEndDate"/>
+                                    <PropertyValue Property="ValueListProperty" String="ValidityEndDate"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="FAC_GL_ACCOUNT_BALANCE_SRV.GL_ACCOUNT_BALANCE/ControllingArea" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Controlling Areas"/>
+                        <PropertyValue Property="CollectionPath" String="VL_SH_H_TKA01"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ControllingArea"/>
+                                    <PropertyValue Property="ValueListProperty" String="KOKRS"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="BEZEI"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="WAERS"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="KTOPL"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="LMONA"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="KHINR"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="FAC_GL_ACCOUNT_BALANCE_SRV.GL_ACCOUNT_BALANCE/Segment" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="help view for table FAGL_SEGM"/>
+                        <PropertyValue Property="CollectionPath" String="VL_SH_H_FAGL_SEGM"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Segment"/>
+                                    <PropertyValue Property="ValueListProperty" String="SEGMENT"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="NAME"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="FAC_GL_ACCOUNT_BALANCE_SRV.GL_ACCOUNT_BALANCE/FunctionalArea" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="VL_CT_TFKB"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="FunctionalArea"/>
+                                    <PropertyValue Property="ValueListProperty" String="FKBER"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="FKBTX"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="FAC_GL_ACCOUNT_BALANCE_SRV.GL_ACCOUNT_BALANCE/BusinessArea" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Help View for Business Areas"/>
+                        <PropertyValue Property="CollectionPath" String="VL_SH_H_TGSB"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="BusinessArea"/>
+                                    <PropertyValue Property="ValueListProperty" String="GSBER"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="GTEXT"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="FAC_GL_ACCOUNT_BALANCE_SRV.GL_ACCOUNT_BALANCE/GlobalCurrency" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="VL_CT_TCURC"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="GlobalCurrency"/>
+                                    <PropertyValue Property="ValueListProperty" String="WAERS"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="LTEXT"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="FAC_GL_ACCOUNT_BALANCE_SRV.GL_ACCOUNT_BALANCE/FreeDefinedCurrency1" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="VL_CT_TCURC"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="FreeDefinedCurrency1"/>
+                                    <PropertyValue Property="ValueListProperty" String="WAERS"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="LTEXT"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="FAC_GL_ACCOUNT_BALANCE_SRV.GL_ACCOUNT_BALANCE/FreeDefinedCurrency2" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="VL_CT_TCURC"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="FreeDefinedCurrency2"/>
+                                    <PropertyValue Property="ValueListProperty" String="WAERS"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="LTEXT"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="FAC_GL_ACCOUNT_BALANCE_SRV.GL_ACCOUNT_BALANCE/FreeDefinedCurrency3" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="VL_CT_TCURC"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="FreeDefinedCurrency3"/>
+                                    <PropertyValue Property="ValueListProperty" String="WAERS"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="LTEXT"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="FAC_GL_ACCOUNT_BALANCE_SRV.GL_ACCOUNT_BALANCE/FreeDefinedCurrency4" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="VL_CT_TCURC"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="FreeDefinedCurrency4"/>
+                                    <PropertyValue Property="ValueListProperty" String="WAERS"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="LTEXT"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="FAC_GL_ACCOUNT_BALANCE_SRV.GL_ACCOUNT_BALANCE/FreeDefinedCurrency5" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="VL_CT_TCURC"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="FreeDefinedCurrency5"/>
+                                    <PropertyValue Property="ValueListProperty" String="WAERS"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="LTEXT"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="FAC_GL_ACCOUNT_BALANCE_SRV.GL_ACCOUNT_BALANCE/FreeDefinedCurrency6" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="VL_CT_TCURC"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="FreeDefinedCurrency6"/>
+                                    <PropertyValue Property="ValueListProperty" String="WAERS"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="LTEXT"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="FAC_GL_ACCOUNT_BALANCE_SRV.GL_ACCOUNT_BALANCE/FreeDefinedCurrency7" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="VL_CT_TCURC"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="FreeDefinedCurrency7"/>
+                                    <PropertyValue Property="ValueListProperty" String="WAERS"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="LTEXT"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="FAC_GL_ACCOUNT_BALANCE_SRV.GL_ACCOUNT_BALANCE/FreeDefinedCurrency8" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="VL_CT_TCURC"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="FreeDefinedCurrency8"/>
+                                    <PropertyValue Property="ValueListProperty" String="WAERS"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="LTEXT"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="FAC_GL_ACCOUNT_BALANCE_SRV.GL_ACCOUNT_BALANCE/ProfitCenter" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Profit center in company code"/>
+                        <PropertyValue Property="CollectionPath" String="VL_SH_PRCTB"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ProfitCenter"/>
+                                    <PropertyValue Property="ValueListProperty" String="PRCTR"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterIn">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CompanyCode"/>
+                                    <PropertyValue Property="ValueListProperty" String="BUKRS"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ProfitCenterName"/>
+                                    <PropertyValue Property="ValueListProperty" String="KTEXT"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <atom:link rel="self" href="http://hclsd1809a.hcldigilabs.com:50000/sap/opu/odata/sap/FAC_GL_ACCOUNT_BALANCE_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://hclsd1809a.hcldigilabs.com:50000/sap/opu/odata/sap/FAC_GL_ACCOUNT_BALANCE_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

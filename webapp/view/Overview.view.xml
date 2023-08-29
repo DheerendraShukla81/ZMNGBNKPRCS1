@@ -1,0 +1,193 @@
+<mvc:View controllerName="com.okwut.mngbnkprcs.zmngbnkprcs.controller.Overview" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m" xmlns:viz="sap.viz.ui5.controls" xmlns:layout="sap.ui.layout" xmlns:c="sap.suite.ui.commons" xmlns:f="sap.ui.layout.form"
+	xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" xmlns:viz.data="sap.viz.ui5.data" displayBlock="true" xmlns:l="sap.ui.layout">
+	<Shell id="shell">
+		<App id="app">
+			<pages>
+				<Page id="page" title="{i18n>Manage Bankruptcy Process}">
+					<content>
+						<Panel id='settingsPanel' class="panelStyle" width="auto">
+							<content>
+								<VBox class="clsMForm">
+									<f:SimpleForm editable="true" layout="ResponsiveGridLayout" title="" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
+										adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2"
+										singleContainerFullSize="true">
+										<f:content>
+											<l:VerticalLayout width="100%">
+												<l:Grid defaultSpan="XL2 L2 M6 S12">
+													<l:content>
+														<VBox>
+															<Title text="{i18n>BusinessPrtnr}" class="bldTxtChld"/>
+															<MultiInput valueHelpOnly="true" showValueHelp="true" editable="true" enabled="true" valueHelpRequest="vendorValueHelp" class="inpStyle"></MultiInput>
+														</VBox>
+														<VBox>
+															<Title text="{i18n>CaseNum}" class="bldTxtChld"/>
+															<MultiInput valueHelpOnly="true" showValueHelp="true" editable="true" enabled="true" valueHelpRequest="vendorValueHelp" class="inpStyle"></MultiInput>
+														</VBox>
+														<VBox>
+															<Title text="{i18n>BankrupTypStatus}" class="bldTxtChld"/>
+															<Select selectedKey="{crtModel>Certificationid}" width="11rem" items="{CertificationCodeModel>/}" change="onChangeCertificationId">
+																<items>
+																	<core:Item text="{CertificationCodeModel>Certiid}" key="{CertificationCodeModel>Certiid}"/>
+																</items>
+															</Select>
+														</VBox>
+														<VBox>
+															<Title text="{i18n>PetitionDt}" class="bldTxtChld"/>
+															<DatePicker placeholder="Enter Date ..." change="onChangeDate"
+							value="{ path:'crtModel>Certificationdate', formatter:'com.hcl.TrainingDashboard.util.Formatter.date' }" valueFormat="dd-MM-yyyy" displayFormat="dd-MM-yyyy"/>
+														</VBox>
+														<VBox>
+															<Title text="{i18n>CreationDt}" class="bldTxtChld"/>
+															<DatePicker placeholder="Enter Date ..." change="onChangeDate"
+							value="{ path:'crtModel>Certificationdate', formatter:'com.hcl.TrainingDashboard.util.Formatter.date' }" valueFormat="dd-MM-yyyy" displayFormat="dd-MM-yyyy"/>
+														</VBox>
+														<VBox>
+															<Title text="{i18n>BankrupTyp}" class="bldTxtChld"/>
+															<Select selectedKey="{crtModel>Certificationid}" width="11rem" items="{CertificationCodeModel>/}" change="onChangeCertificationId">
+																<items>
+																	<core:Item text="{CertificationCodeModel>Certiid}" key="{CertificationCodeModel>Certiid}"/>
+																</items>
+															</Select>
+														</VBox>
+														<VBox>
+															<Title text="{i18n>PrePetition}" class="bldTxtChld"/>
+															<MultiInput valueHelpOnly="true" showValueHelp="true" editable="true" enabled="true" valueHelpRequest="vendorValueHelp" class="inpStyle"></MultiInput>
+														</VBox>
+														<VBox>
+															<Title text="{i18n>PostPettion}" class="bldTxtChld"/>
+															<MultiInput valueHelpOnly="true" showValueHelp="true" editable="true" enabled="true" valueHelpRequest="vendorValueHelp" class="inpStyle"></MultiInput>
+														</VBox>
+														<VBox>
+															<Title text="{i18n>ProcessingStatus}" class="bldTxtChld"/>
+															<Select selectedKey="{crtModel>Certificationid}" width="11rem" items="{CertificationCodeModel>/}" change="onChangeCertificationId">
+																<items>
+																	<core:Item text="{CertificationCodeModel>Certiid}" key="{CertificationCodeModel>Certiid}"/>
+																</items>
+															</Select>
+														</VBox>
+														<VBox>
+															<Title text="{i18n>BankrupCate}" class="bldTxtChld"/>
+															<Select selectedKey="{crtModel>Certificationid}" width="11rem" items="{CertificationCodeModel>/}" change="onChangeCertificationId">
+																<items>
+																	<core:Item text="{CertificationCodeModel>Certiid}" key="{CertificationCodeModel>Certiid}"/>
+																</items>
+															</Select>
+														</VBox>
+														<VBox>
+															<Title class="bldTxtChld"/>
+															<HBox>
+																<Button class="iconClass" press="fnSubmit" type="Emphasized" text="{i18n>Srch}"></Button>
+																<Button class="iconClass sapUiTinyMarginBegin" press="fnExportChart" type="Emphasized" text="{i18n>Cncl}"></Button>
+															</HBox>
+														</VBox>
+														<VBox></VBox>
+													</l:content>
+												</l:Grid>
+											</l:VerticalLayout>
+										</f:content>
+									</f:SimpleForm>
+								</VBox>
+							</content>
+						</Panel>
+						<FlexBox class="oBgForm sapUiSmallMargin" direction="Column" justifyContent="Center">
+							<items>
+								<HBox width="100%">
+									<VBox width="100%" class="vboxBorder sapUiTinyMarginBegin sapUiTinyMarginTop">
+										<layout:FixFlex id='chartFixFlex' minFlexSize="250">
+											<layout:flexContent>
+												<viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}" height='100%' width="100%" vizType='stacked_column'>
+													<viz:dataset>
+														<viz.data:FlattenedDataset data="{/results}">
+															<viz.data:dimensions>
+																<viz.data:DimensionDefinition name="Quarter" value="{Quarter}"/>
+															</viz.data:dimensions>
+															<viz.data:measures>
+																<viz.data:MeasureDefinition name="Corrective Work" value="{Corrective_WO}"/>
+																<viz.data:MeasureDefinition name="General Work" value="{General_WO}"/>
+																<viz.data:MeasureDefinition name="Preventive Work" value="{Preventive_WO}"/>
+															</viz.data:measures>
+														</viz.data:FlattenedDataset>
+													</viz:dataset>
+													<viz:feeds>
+														<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Corrective Work,General Work,Preventive Work"/>
+														<viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Quarter"/>
+													</viz:feeds>
+												</viz:VizFrame>
+											</layout:flexContent>
+										</layout:FixFlex>
+									</VBox>
+								</HBox>
+								<HBox width="100%">
+									<VBox width="100%" class="vboxBorder sapUiTinyMarginBegin sapUiTinyMarginTop">
+										<Table class="clsMyRequest tableCell tableBorder" items="{bnkrupcyModel>/BankruptcyProccessing}" id="bnkRupcyList" growing="true" growingThreshold="3"
+											growingScrollToLoad="false" mode="MultiSelect" selectionChange="onSelectionChange">
+											<headerToolbar>
+												<OverflowToolbar>
+													<Title id="tblTilte" text="Existing Case(s)" class="tblHeaderTop"/>
+													<ToolbarSpacer/>
+													<Button class="clsRequest" text="{i18n>Mass Update}" icon="sap-icon://activities" press="onupdtBtnPress" id="btnUpdate" enabled="false" />
+													<Button class="clsRequest" text="{i18n>New Case}" icon="sap-icon://create-form" press="onAddBtnPress"/>
+													<Button class="clsRequest" text="{i18n>Sort}" icon="sap-icon://sorting-ranking" press="onSortButtonPressed"/>
+													<Button class="clsRequest" text="{i18n>Settings}" icon="sap-icon://settings" press="onSettingsCreate"></Button>
+													<Button class="clsRequest" id="btnEdit" text="{i18n>Edit}" icon="sap-icon://edit" press="onEditBtnPress"/>
+													<Button class="clsRequest" text="{i18n>Save}" icon="sap-icon://accept" press="onEditBtnPress" visible="{pgModeModel>/modelData/isEditable}"/>
+													<Button class="clsRequest" text="{i18n>Cancel}" icon="sap-icon://reset" press="onCancelBtnPress" visible="{pgModeModel>/modelData/isEditable}"/>
+												</OverflowToolbar>
+											</headerToolbar>
+											<columns>
+												<Column hAlign="Left" vAlign="Middle"  class="tableHdr" id="requstType">
+													<header><Label text="{i18n>BusinessPrtnr}" class="tblHeader launchTextWrapNormal"/></header>
+												</Column>
+												<Column hAlign="Left" vAlign="Middle"  class="tableHdr" id="requstID">
+													<header><Label text="{i18n>PetitionDt}" class="tblHeader launchTextWrapNormal"/></header>
+												</Column>
+												<Column minScreenWidth="Tablet" demandPopin="true"  class="tableHdr" hAlign="Left" vAlign="Middle" id="business">
+													<header><Label text="{i18n>BankrupTypStatus}" class="tblHeader launchTextWrapNormal"/></header>
+												</Column>
+												<Column minScreenWidth="Tablet" demandPopin="true"  class="tableHdr" hAlign="Left" vAlign="Middle" id="subBusiness">
+													<header><Label text="{i18n>BankrupTypStatusDt}" class="tblHeader launchTextWrapNormal"/></header>
+												</Column>
+												<Column minScreenWidth="Tablet" demandPopin="true"  class="tableHdr" hAlign="Left" vAlign="Middle" id="requstorName">
+													<header><Label text="{i18n>CaseNum}" class="tblHeader launchTextWrapNormal"/></header>
+												</Column>
+												<Column minScreenWidth="Tablet" demandPopin="true"  class="tableHdr" hAlign="Left" vAlign="Middle" id="requstorEmail">
+													<header><Label text="{i18n>BankrupTyp}" class="tblHeader launchTextWrapNormal"/></header>
+												</Column>
+												<Column minScreenWidth="Tablet" demandPopin="true"  class="tableHdr" hAlign="Left" vAlign="Middle" id="vendor">
+													<header><Label text="{i18n>CrtdBy}" class="tblHeader launchTextWrapNormal"/></header>
+												</Column>
+												<Column minScreenWidth="Tablet" demandPopin="true"  class="tableHdr" hAlign="Left" vAlign="Middle" id="purchasingAccountingNo">
+													<header><Label text="{i18n>CrtdOn}" class="tblHeader launchTextWrapNormal"/></header>
+												</Column>
+												<Column minScreenWidth="Tablet" demandPopin="true"  class="tableHdr" hAlign="Left" vAlign="Middle" id="purchasingAccountingNo1">
+													<header><Label text="{i18n>CrtdTime}" class="tblHeader launchTextWrapNormal"/></header>
+												</Column>
+											</columns>
+											<ColumnListItem type="Navigation" press="handleHdrItemPress">
+												<cells>
+													<Text class="plainText" text="{bnkrupcyModel>BusinessPartner}"/>
+													
+													<DatePicker change="onChangeDate" enabled="{pgModeModel>/modelData/isEditable}"
+							value="{ path:'bnkrupcyModel>petitionDate', formatter:'com.okwut.mngbnkprcs.zmngbnkprcs.util.Formatter.dateD'}" valueFormat="yyyy-MM-dd" displayFormat="dd-MM-yyyy" />
+													
+													<Text class="plainText" text="{bnkrupcyModel>BankruptcyStatus}"/>
+													<Text class="plainText" text="{bnkrupcyModel>BankruptcyStatusDate}"/>
+													<Text class="plainText" text="{bnkrupcyModel>CaseNumber}"/>
+													<Text class="plainText" text="{bnkrupcyModel>Bankruptcytype}"/>
+													<Text class="plainText" text="{bnkrupcyModel>CreatedBy}"/>
+													<Text class="plainText" text="{bnkrupcyModel>Createdon}"/>
+													<Text class="plainText" text="{bnkrupcyModel>CreatedTime}"/>
+												</cells>
+											</ColumnListItem>
+										</Table>
+									</VBox>
+								</HBox>
+							</items>
+						</FlexBox>
+					</content>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>

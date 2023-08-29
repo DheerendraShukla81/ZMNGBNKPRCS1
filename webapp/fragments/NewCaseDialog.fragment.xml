@@ -1,0 +1,36 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<Dialog title="New Case" id="CreateCaseDialog" contentWidth="35%">
+		<content>
+			<VBox class="sapUiLargeMarginBegin sapUiLargeMarginEnd">
+				<VBox class="sapUiTinyMargin">
+					<Label text="Business Partner" class="sapUiTinyMarginTop sapMLabelRequired"/>
+					<MultiInput valueHelpOnly="true" showValueHelp="true" editable="true" enabled="true" valueHelpRequest="vendorValueHelp" class="inpStyle"></MultiInput>
+				</VBox>
+				<VBox class="sapUiTinyMargin">
+					<Label text="Case Number" class="sapUiTinyMarginTop sapMLabelRequired"/>
+					<MultiInput valueHelpOnly="true" showValueHelp="true" editable="true" enabled="true" valueHelpRequest="vendorValueHelp" class="inpStyle"></MultiInput>
+				</VBox>
+                <VBox class="sapUiTinyMargin">
+					<Label text="Bankrupcy Type" class="sapUiTinyMarginTop sapMLabelRequired"/>
+					<Select selectedKey="{crtModel>Certificationid}" width="11rem" items="{CertificationCodeModel>/}" change="onChangeCertificationId">
+																<items>
+																	<core:Item text="{CertificationCodeModel>Certiid}" key="{CertificationCodeModel>Certiid}"/>
+																</items>
+					</Select>
+				</VBox>
+				<VBox class="sapUiTinyMargin">
+					<Label text="Petition Date" class="sapUiTinyMarginTop sapMLabelRequired"/>
+					<DatePicker placeholder="Enter Date ..." change="onChangeDate"
+							value="{ path:'crtModel>Certificationdate', formatter:'com.hcl.TrainingDashboard.util.Formatter.date' }" valueFormat="dd-MM-yyyy" displayFormat="dd-MM-yyyy"/>
+				</VBox>
+				<VBox class="sapUiTinyMargin"></VBox>
+			</VBox>
+		</content>
+		<beginButton>
+			<Button type="Reject" text="{i18n>cancel}" press="onCancelDialog"/>
+		</beginButton>
+		<endButton>
+			<Button type="Accept" text="{i18n>save}" press="onSaveDialog"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

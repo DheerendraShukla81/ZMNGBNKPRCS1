@@ -1,0 +1,69 @@
+{
+    "BankruptcyProccessing": [
+        {
+            "BusinessPartner": "222222222",
+            "petitionDate": "02/12/2001",
+            "BankruptcyStatus": "01-Active",
+            "BankruptcyStatusDate": "12/12/9999",
+            "CaseNumber": "case-1234",
+            "Bankruptcytype": "07-Chapter 7",
+            "CreatedBy": "User 1234",
+            "Createdon": "12/12/9999",
+            "CreatedTime": "11:59:00",
+            "LineItems": [
+                {
+                    "Pre-PetitionCA": "222222222222",
+                    "processingStatus": "01 -New",
+                    "BankruptcyCategory": "02- Inactive Post Pet'n Debt",
+                    "Post-PetitionCa": "23222222234"
+                },
+                {
+                    "Pre-PetitionCA": "222222222223",
+                    "processingStatus": "02 -CA Management",
+                    "BankruptcyCategory": "01- Active",
+                    "Post-PetitionCa": "23222222242"
+                },
+                {
+                    "Pre-PetitionCA": "222222222224",
+                    "processingStatus": "05 -Move-out Pre-Petition",
+                    "BankruptcyCategory": "01 -Active",
+                    "Post-PetitionCa": "232222222236"
+                },
+                {
+                    "Pre-PetitionCA": "222222222225",
+                    "processingStatus": "01 -New",
+                    "BankruptcyCategory": "03- Inactive Post Pet'n Debt",
+                    "Post-PetitionCa": "232222222272"
+                },
+                {
+                    "Pre-PetitionCA": "222222222226",
+                    "processingStatus": "09 -Transfer Posting",
+                    "BankruptcyCategory": "01- Active",
+                    "Post-PetitionCa": "23222222226"
+                }
+            ]
+        },
+        {
+            "BusinessPartner": "111111111",
+            "petitionDate": "17/05/2003",
+            "BankruptcyStatus": "04-Dismissed",
+            "BankruptcyStatusDate": "12/12/2001",
+            "CaseNumber": "case-12345",
+            "Bankruptcytype": "11-Chapter 11",
+            "CreatedBy": "User 1234",
+            "Createdon": "12/12/9999",
+            "CreatedTime": "11:59:00"
+        },
+        {
+            "BusinessPartner": "333333333",
+            "petitionDate": "19/07/2020",
+            "BankruptcyStatus": "01-Active",
+            "BankruptcyStatusDate": "12/12/9999",
+            "CaseNumber": "case-12343",
+            "Bankruptcytype": "07-Chapter 7",
+            "CreatedBy": "User 1234",
+            "Createdon": "12/12/9999",
+            "CreatedTime": "11:59:00"
+        }
+    ]
+}

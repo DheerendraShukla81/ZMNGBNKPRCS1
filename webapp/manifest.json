@@ -1,0 +1,157 @@
+{
+  "_version": "1.28.0",
+  "sap.app": {
+    "id": "com.okwut.mngbnkprcs.zmngbnkprcs",
+    "type": "application",
+    
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+
+    "i18n": {
+      "bundleName": "com.okwut.mngbnkprcs.zmngbnkprcs.i18n.i18n",      
+      "supportedLocales": ["en", "fr"],    
+      "fallbackLocale": "en"     
+      },
+
+    
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.10.5",
+      "toolsId": "6232d181-4706-4633-857c-5eb635faa193"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/sap/opu/odata/sap/FAC_GL_ACCOUNT_BALANCE_SRV/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "bnkrupcyDataSource": {
+				"uri": "model/bnkData.json",
+				"type": "JSON"
+			}
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.84.28",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.f": {},
+        "sap.suite.ui.generic.template": {},
+        "sap.ui.comp": {},
+        "sap.ui.generic.app": {},
+        "sap.ui.table": {},
+        "sap.ushell": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleUrl": "i18n/i18n.properties",
+          "supportedLocales": ["en", "fr"],
+          "fallbackLocale": "en"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {}
+      },
+      "bnkrupcyModel": {
+				"type": "sap.ui.model.json.JSONModel",
+				"dataSource": "bnkrupcyDataSource"
+			},
+      "bnkrupcyDetailsModel": {
+				"type": "sap.ui.model.json.JSONModel"
+			}
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "async": true,
+        "viewPath": "com.okwut.mngbnkprcs.zmngbnkprcs.view",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "clearControlAggregation": false
+      },
+      "routes": [
+        {
+					"pattern": "",
+					"name": "Overview",
+					"target": "TargetOverview"
+				},
+				
+        {
+          "pattern": "Overview",
+          "name": "OverviewH",       
+          "target": "TargetOverview"
+        },
+        {
+					"pattern": "BankrupcyDetails/{bpNum}",
+					"name": "BankrupcyDetails",
+					"target": "BankrupcyDetails"
+				}
+      ],
+      "targets": {
+        "BankrupcyDetails": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "BankrupcyDetails",
+          "viewName": "BankrupcyDetails"
+        },
+        "TargetOverview": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewName": "Overview"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "com.okwut.mngbnkprcs.zmngbnkprcs.view.Overview",
+      "type": "XML",
+      "async": true,
+      "id": "Overview"
+    }
+  }
+}

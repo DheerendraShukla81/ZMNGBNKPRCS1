@@ -1,0 +1,13 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<ViewSettingsDialog class="clsFragment"
+		confirm="handleSortDialogConfirm">
+		<sortItems>
+			<ViewSettingsItem text="Business Partner" key="BusinessPartner" />
+            <ViewSettingsItem text="Bankruptcy Status" key="BankruptcyStatus" />
+			<ViewSettingsItem text="Case Number" key="CaseNumber" />
+			<ViewSettingsItem text="Bankruptcy Type" key="Bankruptcytype" />			
+		</sortItems>
+	</ViewSettingsDialog>
+</core:FragmentDefinition>

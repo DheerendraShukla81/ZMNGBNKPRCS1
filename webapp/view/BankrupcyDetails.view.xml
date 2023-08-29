@@ -1,0 +1,191 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.uxap"
+	xmlns:m="sap.m"
+	controllerName="com.okwut.mngbnkprcs.zmngbnkprcs.controller.BankrupcyDetails"
+	xmlns:core="sap.ui.core"
+	
+	height="100%">
+
+	<ObjectPageLayout id="ObjectPageLayout"
+		showTitleInHeaderContent="true"
+		upperCaseAnchorBar="false" binding="{bnkrupcyDetailsModel>/modelData}">
+		<headerTitle>
+			<ObjectPageDynamicHeaderTitle>
+				<expandedHeading>
+					<m:Title text="Object Page Header with Header Container" wrapping="true" />
+				</expandedHeading>
+
+				<snappedHeading>
+					<m:HBox>
+						<m:VBox>
+							<m:Avatar src="./test-resources/sap/uxap/images/imageID_275314.png" class="sapUiSmallMarginEnd" />
+						</m:VBox>
+
+						<m:VBox>
+							<m:Title text="Object Page Header with Header Container" wrapping="true"/>
+							<m:Label text="Example of an ObjectPage with header facet"/>
+						</m:VBox>
+					</m:HBox>
+				</snappedHeading>
+
+				<expandedContent>
+					<m:Label text="Example of an ObjectPage with header facet"/>
+				</expandedContent>
+
+				<snappedTitleOnMobile>
+					<m:Title text="Object Page Header with Header Container"/>
+				</snappedTitleOnMobile>
+
+				<actions>
+		
+					<m:OverflowToolbarButton icon="sap-icon://action" type="Transparent"  press="onBackBtnPress" text="Share" tooltip="action"/>
+				</actions>
+			</ObjectPageDynamicHeaderTitle>
+		</headerTitle>
+
+		<headerContent>
+
+			<m:HeaderContainer id="headerContainer" scrollStep="200" showDividers="false">
+				<m:HBox class="sapUiMediumMarginEnd sapUiSmallMarginBottom" width="25rem">
+					<m:Avatar src="./test-resources/sap/uxap/images/imageID_275314.png" class="sapUiMediumMarginEnd sapUiSmallMarginBottom" displaySize="L"/>
+
+					<m:VBox class="sapUiSmallMarginBottom">
+						<m:Title class="sapUiTinyMarginBottom">
+							<m:Link text="Business Partner Details"/>
+						</m:Title>
+
+						<m:HBox class="sapUiTinyMarginBottom" renderType="Bare">
+							<m:Label text="Business Partner:" class="sapUiTinyMarginEnd"/>
+							<m:Text text="{bnkrupcyDetailsModel>BusinessPartner}"/>
+						</m:HBox>
+
+						<m:HBox class="sapUiTinyMarginBottom" renderType="Bare">
+							<m:Label text="Case Number:" class="sapUiTinyMarginEnd"/>
+							<m:Text text="{bnkrupcyDetailsModel>CaseNumber}"/>
+						</m:HBox>
+
+						<m:HBox>
+							<m:Label text="petition Date:" class="sapUiTinyMarginEnd"/>
+							<m:Text text="{bnkrupcyDetailsModel>petitionDate}"/>							
+						</m:HBox>
+					</m:VBox>
+				</m:HBox>
+
+
+				<m:VBox class="sapUiMediumMarginEnd sapUiSmallMarginBottom" width="25rem">
+					
+					<m:Title class="sapUiTinyMarginBottom">
+							<m:Link text="Bankruptcy Information"/>
+						</m:Title>
+
+					<m:HBox class="sapUiTinyMarginBottom">
+						<m:Label text="Bankruptcy Status:"/>
+						<m:Text text="{bnkrupcyDetailsModel>BankruptcyStatus}" class="sapUiSmallMarginBegin"/>	
+					
+					</m:HBox>
+
+					<m:HBox class="sapUiTinyMarginBottom">
+						<m:Label text="Bankruptcy Type:"/>
+						<m:Text text="{bnkrupcyDetailsModel>Bankruptcytype}" class="sapUiSmallMarginBegin"/>	
+					</m:HBox>
+
+					<m:HBox>
+						<m:Label text="Bankruptcy Status Date:"/>
+						<m:Text text="{bnkrupcyDetailsModel>BankruptcyStatusDate}" class="sapUiSmallMarginBegin"/>	
+					</m:HBox>
+				</m:VBox>
+
+				<m:VBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
+				<m:Title class="sapUiTinyMarginBottom">
+							<m:Link text="Modification Information"/>
+						</m:Title>
+					<m:HBox class="sapUiTinyMarginBottom">
+						<m:Label text="Created By:" class="sapUiSmallMarginEnd"/>
+						<m:Text text="{bnkrupcyDetailsModel>CreatedBy}"/>
+					</m:HBox>
+
+					<m:HBox class="sapUiTinyMarginBottom" renderType="Bare">
+						<m:Label text="Created On:" class="sapUiSmallMarginEnd"/>
+						<m:Text text="{bnkrupcyDetailsModel>Createdon}"/>
+					</m:HBox>
+
+					<m:HBox class="sapUiTinyMarginBottom">
+						<m:Label text="Changed By:" class="sapUiSmallMarginEnd"/>
+						<m:Text text="{bnkrupcyDetailsModel>CreatedTime}"/>
+					</m:HBox>
+				</m:VBox>	
+			</m:HeaderContainer>
+
+		</headerContent>
+
+		<sections>
+			<ObjectPageSection titleUppercase="false" id="personalSection" title="Personal" importance="Medium">
+				<subSections>
+					<ObjectPageSubSection id="personalSectionSS2" title="Payment information" titleUppercase="false">
+						<blocks>
+						<m:VBox width="100%" class="vboxBorder">
+							<m:Table class="clsMyRequest tableCell tableBorder" items="{bnkrupcyDetailsModel>LineItems}" id="LineItemList" growing="true" growingThreshold="3"
+											growingScrollToLoad="false" mode="MultiSelect" selectionChange="onChildSelectionChange">
+											<m:headerToolbar>
+												<m:OverflowToolbar>
+													<m:Title id="tblTilteChild" text="" class="tblHeaderTop"/>
+													<m:ToolbarSpacer/>
+													<m:Button class="clsRequest" text="{i18n>Mass Update}" icon="sap-icon://activities" press="onChldupdtBtnPress" id="btnChldUpdate" enabled="false" />
+													<m:Button class="clsRequest" id="btnEdit" text="{i18n>Edit}" icon="sap-icon://edit" press="onEditBtnPress"/>
+													<m:Button class="clsRequest" text="{i18n>Save}" icon="sap-icon://accept" press="onEditBtnPress" visible="{pgDtModeModel>/modelData/isEditable}"/>
+													<m:Button class="clsRequest" text="{i18n>Cancel}" icon="sap-icon://reset" press="onCancelBtnPress" visible="{pgDtModeModel>/modelData/isEditable}"/>
+												</m:OverflowToolbar>
+											</m:headerToolbar>
+											<m:columns>
+												<m:Column hAlign="Left" vAlign="Middle"  class="tableHdr" id="childPrePetitionCA">
+													<m:header><m:Label text="Pre-Petition CA" class="tblHeader launchTextWrapNormal"/></m:header>
+												</m:Column>
+												<m:Column hAlign="Left" vAlign="Middle"  class="tableHdr" id="childProcessingStatus">
+													<m:header><m:Label text="Processing Status" class="tblHeader launchTextWrapNormal"/></m:header>
+												</m:Column>
+												<m:Column minScreenWidth="Tablet" demandPopin="true"  class="tableHdr" hAlign="Left" vAlign="Middle" id="childBankruptcyCategory">
+													<m:header><m:Label text="Bankruptcy Category" class="tblHeader launchTextWrapNormal"/></m:header>
+												</m:Column>
+												<m:Column minScreenWidth="Tablet" demandPopin="true"  class="tableHdr" hAlign="Left" vAlign="Middle" id="childpostPetitionCA">
+													<m:header><m:Label text="Post-Petition CA" class="tblHeader launchTextWrapNormal"/></m:header>
+												</m:Column>
+											</m:columns>
+											<m:ColumnListItem press="handleHdrItemPress">
+												<m:cells>
+													<m:Text class="plainText" text="{bnkrupcyDetailsModel>Pre-PetitionCA}"/>
+													<m:Text class="plainText" text="{bnkrupcyDetailsModel>processingStatus}"/>
+													<m:Text class="plainText" text="{bnkrupcyDetailsModel>BankruptcyCategory}"/>
+													<!--<m:Text class="plainText" text="{bnkrupcyDetailsModel>Post-PetitionCa}" visible="{ path:'pgDtModeModel>/modelData/isEditable', formatter:'com.okwut.mngbnkprcs.zmngbnkprcs.util.Formatter.btnVisibility'}" />-->
+													<m:Input class="plainText" type="Text" value="{bnkrupcyDetailsModel>Post-PetitionCa}" editable="{pgDtModeModel>/modelData/isEditable}" width="10rem" />
+												</m:cells> 
+											</m:ColumnListItem>
+										</m:Table>
+										</m:VBox>
+						</blocks>
+						<moreBlocks>
+							
+						</moreBlocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+
+			<ObjectPageSection titleUppercase="false" id="employmentSection" title="Employment">
+				<subSections>
+					<ObjectPageSubSection id="employmentSectionSS1" title="Job information" titleUppercase="false">
+						<blocks>
+							
+						</blocks>
+					</ObjectPageSubSection>
+
+					<ObjectPageSubSection id="employmentSectionSS2" title="Employee Details" importance="Medium" titleUppercase="false">
+						<blocks>
+							
+						</blocks>
+						<moreBlocks>
+						</moreBlocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+		</sections>
+	</ObjectPageLayout>
+</mvc:View>
